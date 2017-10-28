@@ -1,0 +1,18 @@
+<div>
+  <h1>Which tweets are you looking for ?</h1>
+
+  <%= form_tag url_for(:controller => 'search', :action => 'show'), :method => "get" do %>
+    <%= label_tag(:key_words, "Key Words: ") %>
+    <%= text_field_tag(:key_words) %>
+    <%= submit_tag("Search") %>
+  <% end %>
+
+
+  <% if current_user %>
+      Logged in as <%= current_user.name %>.
+      <%= link_to "Log Out", logout_path %>
+  <% else %>
+      <%= button_to "Register", new_user_path, method: "get" %>
+      <%= button_to "Login", new_session_path, method: "get" %>
+  <% end %>
+</div>
