@@ -19,11 +19,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+
+  end
+
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
     if @user.update(user_params)
-      redirect_to @user, notice: "User was successfully updated."
+      redirect_to search_index_path, notice: "Password was successfully changed."
     else
       render "edit"
     end

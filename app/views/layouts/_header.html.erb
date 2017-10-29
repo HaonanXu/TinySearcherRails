@@ -13,8 +13,12 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
         <% if current_user %>
-            Logged in as <%= current_user.name %>.
-            <%= link_to "Log Out", logout_path %>
+            <li class="nav-item">
+              <%= link_to "Reset Passeword", edit_user_path(current_user) %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Log Out", logout_path %>
+            </li>
         <% else %>
             <li class="nav-item">
               <%= link_to "Register", new_user_path, method: "get", class: "nav-link" %>

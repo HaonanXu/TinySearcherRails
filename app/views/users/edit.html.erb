@@ -1,0 +1,13 @@
+<h2>Password Reset</h2>
+
+<%= bootstrap_form_for(current_user, layout: :horizontal, label_col: "col-sm-4", control_col: "col-sm-4", method: "put") do |f| %>
+    <%= f.password_field :password, lable: "New Password" %>
+    <%= f.password_field :password_confirmation, lable: "password_confirmation" %>
+
+    <%= f.form_group do %>
+        <%= f.submit "Reset" %>
+        <%= link_to("Back", edit_user_path, class: "btn btn-default") %>
+    <% end %>
+
+<% end %>
+
