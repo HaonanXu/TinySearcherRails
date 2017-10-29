@@ -1,4 +1,4 @@
-class Searcher
+class Searchable
   def initialize(key_words)
     @key_words = key_words
   end

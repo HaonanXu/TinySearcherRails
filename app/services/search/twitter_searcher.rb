@@ -1,6 +1,6 @@
-require 'controller/searcher'
+require 'search/searchable'
 
-class TwitterSearcher < Searcher
+class TwitterSearcher < Searchable
   def search
     raise ArgumentError, 'Empty Key Words !' if @key_words.blank?
 
