@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TinySearcher</title>
+    <title>Tiny Tweets Searcher</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -9,6 +9,17 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="container">
+      <div class="row">
+        <div class="span9">
+          <%= render 'layouts/header' %>
+
+          <% flash.each do |name, msg| %>
+              <%= content_tag(:div, msg, class: "alert alert-info") %>
+          <% end %>
+          <%= yield %>
+        </div>
+       </div>
+    </div>
   </body>
 </html>

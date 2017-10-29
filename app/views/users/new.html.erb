@@ -1,39 +1,16 @@
-<h1>Sign Up</h1>
+<h2>Sign Up</h2>
 
-<%= form_for(@user) do |form| %>
-    <% if @user.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+<%= bootstrap_form_for(@user, layout: :horizontal, label_col: "col-sm-4", control_col: "col-sm-4", url: create_user_path) do |f| %>
 
-          <ul>
-            <% @user.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
+    <%= f.text_field :name, lable: "Name" %>
+    <%= f.text_field :email, lable: "Email"%>
+    <%= f.password_field :password, lable: "Password" %>
+    <%= f.password_field :password_confirmation, lable: "password_confirmation" %>
+
+    <%= f.form_group do %>
+        <%= f.submit "Sign Up" %>
+        <%= link_to("Back", search_index_path, class: "btn btn-default") %>
     <% end %>
 
-    <div class="field">
-      <%= form.label :name %>
-      <%= form.text_field :name %>
-    </div>
-
-    <div class="field">
-      <%= form.label :email %>
-      <%= form.text_field :email %>
-    </div>
-
-    <div class="field">
-      <%= form.label :password %>
-      <%= form.password_field :password %>
-    </div>
-
-    <div class="field">
-      <%= form.label :password_confirmation %>
-      <%= form.password_field :password_confirmation %>
-    </div>
-
-    <div class="actions"><%= form.submit "Sign Up" %></div>
 <% end %>
 
-<%= link_to 'Back', search_index_path %>

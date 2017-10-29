@@ -1,18 +1,11 @@
-<div>
-  <h1>Which tweets are you looking for ?</h1>
+<div class="row">
+  <h2>What are you looking for ?</h2>
 
-  <%= form_tag url_for(:controller => 'search', :action => 'show'), :method => "get" do %>
-    <%= label_tag(:key_words, "Key Words: ") %>
-    <%= text_field_tag(:key_words) %>
-    <%= submit_tag("Search") %>
-  <% end %>
+  <br/>
 
-
-  <% if current_user %>
-      Logged in as <%= current_user.name %>.
-      <%= link_to "Log Out", logout_path %>
-  <% else %>
-      <%= button_to "Register", new_user_path, method: "get" %>
-      <%= button_to "Login", new_session_path, method: "get" %>
+  <%= bootstrap_form_tag url: search_show_path, method: "get", layout: :inline do |f| %>
+      <%= f.text_field :key_words, hide_label: true, placeholder: "Key words..."%>
+      <%= f.select :site, @options, { class: "selectpicker", hide_label: true } %>
+      <%= f.submit "Search" %>
   <% end %>
 </div>

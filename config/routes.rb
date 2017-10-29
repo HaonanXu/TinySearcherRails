@@ -2,7 +2,10 @@ Rails.application.routes.draw do
 
   get 'search/index'
   get 'search/show'
-  get 'register', to: 'user#new', as: 'register'
+
+  get 'register', to: 'users#new', as: 'new_user'
+  post 'register', to: 'users#create', as: 'create_user'
+
   get 'login', to: 'sessions#new', as: 'login'
   get 'logout', to: 'sessions#destroy', as: 'logout'
 

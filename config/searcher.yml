@@ -1,0 +1,27 @@
+defaults: &defaults
+ supported_sites:
+  Twitter: TWITTER
+  LCBO: LCBO
+  Weather: WEATHER
+
+ api_credentials:
+  TWITTER:
+   consumer_key: 1SWsuwC2hr4pvV3KeMyodBhNr
+   consumer_secret: 8d85nrJzjZbQIisIsiPC9eoGHhJq19muaY6Csg8BFyKLtNjxYF
+
+  LCBO:
+   key: to_be_set
+   secret: to_be_set
+
+  WEATHER:
+   key: to_be_set
+   secret: to_be_set
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

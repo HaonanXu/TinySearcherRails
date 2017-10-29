@@ -1,2 +1,9 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "rails_bootstrap_forms";
+
+
+body .container{
+  width:980px;
+  text-align: center;
+}

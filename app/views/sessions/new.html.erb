@@ -1,13 +1,7 @@
-<h1>Log In</h1>
+<h2>Log In</h2>
 
-<%= form_tag sessions_path do %>
-    <div class="field">
-      <%= label_tag :email %> <br />
-      <%= text_field_tag :email, params[:email] %>
-    </div>
-    <div class="field">
-      <%= label_tag :password %>
-      <%= password_field_tag :password %>
-    </div>
-    <div class="actions"><%= submit_tag "Log In"%></div>
+<%= bootstrap_form_tag url: sessions_path, layout: :horizontal, label_col: "col-sm-4", control_col: "col-sm-4" do |f| %>
+    <%= f.text_field :email, lable: "Email" %>
+    <%= f.password_field :password, lable: "Password" %>
+    <%= f.submit "Log In" %>
 <% end %>

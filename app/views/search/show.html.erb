@@ -1,10 +1,14 @@
 <h1>Search show</h1>
 
 <table>
-  <% @tweets.each do |tweet| %>
-      <tr>
-        <td><%= tweet.text %></td>
-      </tr>
+  <% if @results.blank? %>
+      <h3>Sorry. We could not search any results that match the key words...</h3>
+  <% else %>
+      <% @results.each do |result| %>
+          <tr>
+            <td><%= result.text %></td>
+          </tr>
+      <% end %>
   <% end %>
 </table>
 

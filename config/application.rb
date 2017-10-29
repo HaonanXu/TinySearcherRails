@@ -18,5 +18,7 @@ module TinySearcher
       g.test_framework :rspec, :fixture => true
       g.fixture_replacement :factory_bot, :dir => "spec/factories"
     end
+
+    config.searcher = config_for(:searcher)
   end
 end
