@@ -7,5 +7,6 @@
       <%= f.text_field :key_words, hide_label: true, placeholder: "Key words..."%>
       <%= f.select :site, @options, { class: "selectpicker", hide_label: true } %>
       <%= f.submit "Search" %>
+      <%= link_to "Try My Luck", random_search_path, class: "btn btn-default" %>
   <% end %>
 </div>

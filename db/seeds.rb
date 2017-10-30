@@ -5,3 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+File.open("lib/assets/random_words.txt", 'r') do |f|
+  f.each_line do |line|
+    RandomWord.create({"word" => line.gsub("\n", "").strip}) if line.gsub("\n", "").strip.present?
+  end
+end

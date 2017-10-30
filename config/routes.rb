@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   get 'search/index'
   get 'search/show'
+  get 'search/random', to: 'search#show_random', as: 'random_search'
 
   get 'register', to: 'users#new', as: 'new_user'
   post 'register', to: 'users#create', as: 'create_user'

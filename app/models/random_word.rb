@@ -1,0 +1,2 @@
+class RandomWord < ApplicationRecord
+end
