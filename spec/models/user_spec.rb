@@ -20,8 +20,8 @@ RSpec.describe User, type: :model do
     expect(User.new(invalid_params).save).to be_falsey
   end
 
-  it "success with valid values" do
-    expect(FactoryBot.create(:user)).to be_truthy
+  it "success create with valid values" do
+    expect(User.new(valid_params).save).to be_truthy
   end
 
   describe '#email' do
@@ -39,6 +39,14 @@ RSpec.describe User, type: :model do
       user.email = "email@email."
       expect(user.valid?).to be_falsey
       expect(user.errors.messages[:email]).to eq ["is invalid"]
+    end
+    end
+
+  describe '#name' do
+    it "should be present" do
+      user = User.new({:email => "test@test.com"})
+      expect(user.valid?).to be_falsey
+      expect(user.errors.messages[:name]).to eq ["can't be blank"]
     end
   end
 end
