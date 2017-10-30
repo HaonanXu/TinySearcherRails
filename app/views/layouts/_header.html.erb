@@ -17,6 +17,9 @@
               <%= link_to "Reset Passeword", edit_user_path(current_user) %>
             </li>
             <li class="nav-item">
+              <%= link_to "Activity Log", user_activities_controller_show_path(current_user) %>
+            </li>
+            <li class="nav-item">
               <%= link_to "Log Out", logout_path %>
             </li>
         <% else %>

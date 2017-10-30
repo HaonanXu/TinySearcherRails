@@ -2,7 +2,12 @@ require 'twitter'
 require 'search/searcher'
 
 class SearchController < ApplicationController
+  include ActivityLoggable
+
   before_action :load_config
+  after_action only: [:show] do
+    log_event("SEARCH", @status, current_user)
+  end
 
   def index
     @options = @permitted_sites.to_a
@@ -10,16 +15,18 @@ class SearchController < ApplicationController
 
   #GET /search/show
   def show
+    @status = "SUCCESS"
+
     begin
       if have_keywords
-          Searcher.new.search params[:site]
+        @results= Searcher.new.search params[:site], params[:key_words]
       else
-        flash.now.alert = "Please type in some keywords..."
-        redirect_to search_index_path
+        @status = "FAILED"
+        redirect_to search_index_path, notice: "Please type in some keywords..."
       end
     rescue Twitter::Error, ArgumentError, RuntimeError => e
-      flash.now.alert = e.message
-      redirect_to search_index_path
+      @status = "FAILED"
+      redirect_to search_index_path, notice: e.message
     end
   end
 

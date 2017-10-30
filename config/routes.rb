@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'user_activities_controller/show'
+
   get 'search/index'
   get 'search/show'
 
