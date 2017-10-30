@@ -1,4 +1,4 @@
-<h2>Search show</h2>
+<h2>Search Results</h2>
 
 <table>
   <% if @results.blank? %>
@@ -6,10 +6,16 @@
   <% else %>
       <% @results.each do |result| %>
           <tr>
-            <td><%= result.text %></td>
+            <td>
+              <blockquote class="twitter-tweet" data-lang="en">
+                <p lang="en" dir="ltr"><%= result.text %></p> &mdash;
+                <a href="<%= result.url %>"> <%= result.user.name %> (<%= result.user.screen_name %>)</a>
+                <%= result.created_at %>
+              </blockquote>
+            </td>
           </tr>
       <% end %>
   <% end %>
 </table>
 
-<%= button_to "Search Again", search_index_path, method: "get" %>
+<%= link_to("Search Again", search_index_path, class: "btn btn-default") %>
