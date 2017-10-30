@@ -20,7 +20,7 @@ class UsersController < ApplicationController
 
     if @user.save
       session[:user_id] = @user.id
-      log_event("REGISTER", "SUCCESS", @user)
+      log_event(@user,build_log_params("REGISTER", "SUCCESS"))
 
       redirect_to search_index_path, notice: "You have successfully signed up."
     else

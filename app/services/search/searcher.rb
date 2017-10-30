@@ -16,9 +16,11 @@ class Searcher
         raise @error
       when @permitted_sites["Weather"]
         @error = RuntimeError.new "Weahter search is still in developing and coming soon ..."
+        log_event(@error)
         raise @error
       else
         @error = ArgumentError.new "Unsupported site!"
+        log_event(@error)
         raise @error
     end
   end
