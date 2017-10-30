@@ -1,12 +1,13 @@
 require 'twitter'
 require 'search/searcher'
+require 'event_loggable'
 
 class SearchController < ApplicationController
-  include ActivityLoggable
+  include EventLoggable, LoggableParams
 
   before_action :load_config
   after_action only: [:show] do
-    log_event("SEARCH", @status, current_user)
+    log_event(current_user, build_log_params("SEARCH", @status))
   end
 
   def index

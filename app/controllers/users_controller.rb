@@ -1,9 +1,11 @@
+require 'event_loggable'
+
 class UsersController < ApplicationController
-  include ActivityLoggable
+  include EventLoggable, LoggableParams
 
   before_action :set_user, only: [:update, :destroy]
   after_action only: [:update] do
-    log_event(@event, @status, @user)
+    log_event(@user, build_log_params(@event, @status))
   end
 
   # GET /users/new

@@ -1,8 +1,11 @@
+require 'event_loggable'
+require 'activity_log/log_handler'
+
 class SessionsController < ApplicationController
-  include ActivityLoggable
+  include EventLoggable, LoggableParams
 
   after_action only: [:create, :destory] do
-    log_event(@event, @status, @user)
+    log_event(@user, build_log_params(@event, @status))
   end
 
   def new

@@ -1,6 +1,9 @@
 require 'search/twitter_searcher'
+require 'event_loggable'
 
 class Searcher
+  include EventLoggable
+
   def search(gate_way, key_words)
     @permitted_sites = Rails.configuration.searcher['supported_sites']
 
@@ -8,11 +11,15 @@ class Searcher
       when @permitted_sites["Twitter"]
         @results = TwitterSearcher.new(key_words).search
       when @permitted_sites["LCBO"]
-        raise RuntimeError, "LCBO search is still in developing and coming soon ..."
+        @error = RuntimeError.new "LCBO search is still in developing and coming soon ..."
+        log_event(@error)
+        raise @error
       when @permitted_sites["Weather"]
-        raise RuntimeError, "Weahter search is still in developing and coming soon ..."
+        @error = RuntimeError.new "Weahter search is still in developing and coming soon ..."
+        raise @error
       else
-        raise ArgumentError, "Unsupported site!"
+        @error = ArgumentError.new "Unsupported site!"
+        raise @error
     end
   end
 end
