@@ -44,6 +44,8 @@ class SearchController < ApplicationController
       redis = Redis.new(host: ENV.fetch('REDIS_HOST', 'localhost'))
       key_word = RandomWord.random_word
 
+      # if the key_word is cached before, we directly load previous result from redis
+      # otherwise do search and push result to redis
       if redis.get key_word
 
         @results = JSON.load(redis.get (key_word).gsub('\"','"'))

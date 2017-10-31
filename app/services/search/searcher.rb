@@ -1,6 +1,9 @@
 require 'search/twitter_searcher'
 require 'event_loggable'
 
+# A gateway implementation for all Apis be used for searching
+# currently only implemented Twitter. LCBO and Weather could also extend the searchable abstract class
+# and implement search function, and get enabled in here.
 class Searcher
   include EventLoggable
 
