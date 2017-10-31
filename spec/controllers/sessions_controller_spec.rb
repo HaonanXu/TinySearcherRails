@@ -12,37 +12,42 @@ RSpec.describe SessionsController, type: :controller do
   end
 
   describe "POST #create" do
-    it "Log in exisiting user with correct password" do
-      user = FactoryBot.create(:user)
-      post :create, :params => {:email => user.email, :password => user.password}
-      expect(response).to redirect_to root_url
-      expect(flash[:notice]).to eq("Log In Successfully!")
-    end
-
-    it "Should create success login activity in database" do
-      user = FactoryBot.create(:user)
-      expect {
+    context  "on success" do
+      it "Log in exisiting user with correct password" do
+        user = FactoryBot.create(:user)
         post :create, :params => {:email => user.email, :password => user.password}
-      }.to change(UserActivity, :count).by(1)
+        expect(response).to redirect_to root_url
+        expect(flash[:notice]).to eq("Log In Successfully!")
+      end
 
-      expect(UserActivity.first).to  have_attributes :user_id => user.id, :action => {"event" => "LOGIN", "status" => "SUCCESS"}
+      it "Should create success login activity in database" do
+        user = FactoryBot.create(:user)
+        expect {
+          post :create, :params => {:email => user.email, :password => user.password}
+        }.to change(UserActivity, :count).by(1)
+
+        expect(UserActivity.first).to  have_attributes :user_id => user.id, :action => {"event" => "LOGIN", "status" => "SUCCESS"}
+      end
     end
 
-    it "Redirect to login page on failed auth" do
-      user = FactoryBot.create(:user)
-      post :create, :params => {:email => user.email, :password => user.password + "testtest"}
-      expect(response).to redirect_to new_session_path
-    end
 
-    it "Should create failed login activity on failed auth" do
-      user = FactoryBot.create(:user)
-      expect {
+    context "on failure" do
+      it "Redirect to login page" do
+        user = FactoryBot.create(:user)
         post :create, :params => {:email => user.email, :password => user.password + "testtest"}
-      }.to change(UserActivity, :count).by(1)
+        expect(response).to redirect_to new_session_path
+      end
 
-      expect(flash[:notice]).to eq("Email or Password is invalid")
+      it "Should create failed login activity on failed auth" do
+        user = FactoryBot.create(:user)
+        expect {
+          post :create, :params => {:email => user.email, :password => user.password + "testtest"}
+        }.to change(UserActivity, :count).by(1)
 
-      expect(UserActivity.first).to  have_attributes :user_id => user.id, :action => {"event" => "LOGIN", "status" => "FAILED"}
+        expect(flash[:notice]).to eq("Email or Password is invalid")
+
+        expect(UserActivity.first).to  have_attributes :user_id => user.id, :action => {"event" => "LOGIN", "status" => "FAILED"}
+      end
     end
   end
 
