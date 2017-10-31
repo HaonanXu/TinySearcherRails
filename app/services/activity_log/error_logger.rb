@@ -6,7 +6,7 @@ class ErrorLogger < Loggable
       SystemLog.create({
                               "event" => model.class.name,
                               "message" => model.message,
-                              "log" => model.backtrace
+                              "log" => model.as_json
                        })
     elsif @successor.is_a? Loggable
       @successor.log(model, activities)

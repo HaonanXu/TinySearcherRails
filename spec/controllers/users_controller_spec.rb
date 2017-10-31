@@ -46,7 +46,7 @@ RSpec.describe UsersController, type: :controller do
     context "on failure" do
       it "redirect to register page" do
         post :create, params: {user: invalid_attributes}, session: valid_session
-        expect(response).to redirect_to new_user_path
+        expect(response).to render_template(:new)
       end
     end
   end
@@ -95,7 +95,7 @@ RSpec.describe UsersController, type: :controller do
 
         expect(response).to redirect_to edit_user_path
         expect(flash[:notice]).to eq "Change Password Failed..."
-        end
+      end
 
       it "gererates reset password failed activity" do
         user = FactoryBot.create(:user)

@@ -25,7 +25,7 @@ class UsersController < ApplicationController
 
       redirect_to search_index_path, notice: "You have successfully signed up."
     else
-      redirect_to new_user_path, notice: "Sorry, sign up failed, Please try again..."
+      render "new"
     end
   end
 
