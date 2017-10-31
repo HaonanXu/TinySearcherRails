@@ -20,28 +20,35 @@ class SearchController < ApplicationController
 
     begin
       if have_keywords
+
         @results = Searcher.new.search params[:site], params[:key_words]
       else
+
         @status = "FAILED"
         redirect_to search_index_path, notice: "Please type in some keywords..."
       end
     rescue Twitter::Error, ArgumentError, RuntimeError => e
+
       @status = "FAILED"
       redirect_to search_index_path, notice: e.message
     end
   end
 
+  #GET /search/random
   # Only enabled for TWITTER since LCBO and Weather search are not implemented yet.
   def show_random
     @status = "SUCCESS"
 
     begin
+
       redis = Redis.new(host: ENV.fetch('REDIS_HOST', 'localhost'))
-      key_word = random_word
+      key_word = RandomWord.random_word
 
       if redis.get key_word
+
         @results = JSON.load(redis.get (key_word).gsub('\"','"'))
       else
+
         @results = Searcher.new.search "TWITTER", key_word
         @results = format_twitter_data (@results)
         redis.set(key_word, @results.to_json)
@@ -49,6 +56,7 @@ class SearchController < ApplicationController
 
       render "show"
     rescue Twitter::Error, ArgumentError, RuntimeError => e
+
       @status = "FAILED"
       redirect_to search_index_path, notice: e.message
     end
@@ -58,16 +66,13 @@ class SearchController < ApplicationController
 
   # check if key_words is provided on regular search.
   def have_keywords
-    params[:key_words].present?
-  end
 
-  # random pick words from random_words table.
-  def random_word
-    RandomWord.order("RANDOM()").first.word
+    params[:key_words].present?
   end
 
   # load supported sites for search from cinfig file.
   def load_config
+
     @permitted_sites = Rails.configuration.searcher['supported_sites']
   end
 end

@@ -1,3 +1,5 @@
+# Chain of Responsibility pattern interface
+# Any new logger needs to implement this interface
 class Loggable
 
   def initialize(successor = nil)

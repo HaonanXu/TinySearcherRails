@@ -8,24 +8,29 @@ class SessionsController < ApplicationController
     log_event(@user, build_log_params(@event, @status))
   end
 
+  #GET /session
   def new
   end
 
+  #POST /session
   def create
     @user = User.find_by_email(params[:email])
     @event = "LOGIN"
     @status = "SUCCESS"
 
     if @user && @user.authenticate(params[:password])
+
       session[:user_id] = @user.id
       redirect_to root_url, notice: "Log In Successfully!"
     else
+
       @status ="FAILED"
       flash.now.alert = "Email or Password is invalid"
       render "new"
     end
   end
 
+  #DELETE /session
   def destroy
     @user = current_user
     session[:user_id] = nil
