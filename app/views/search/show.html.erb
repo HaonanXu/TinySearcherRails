@@ -8,9 +8,9 @@
           <tr>
             <td>
               <blockquote class="twitter-tweet" data-lang="en">
-                <p lang="en" dir="ltr"><%= result.text %></p> &mdash;
-                <a href="<%= result.url %>"> <%= result.user.name %> (<%= result.user.screen_name %>)</a>
-                <%= result.created_at %>
+                <p lang="en" dir="ltr"><%= result["text"] %></p> &mdash;
+                <a href="<%= result["url"] %>"> <%= result["name"] %> (<%= result["screen_name"] %>)</a>
+                <%= result["created_at"] %>
               </blockquote>
             </td>
           </tr>
