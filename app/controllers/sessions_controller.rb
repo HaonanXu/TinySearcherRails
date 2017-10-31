@@ -4,7 +4,7 @@ require 'activity_log/log_handler'
 class SessionsController < ApplicationController
   include EventLoggable, LoggableParams
 
-  after_action only: [:create, :destory] do
+  after_action only: [:create, :destroy] do
     log_event(@user, build_log_params(@event, @status))
   end
 
@@ -25,8 +25,7 @@ class SessionsController < ApplicationController
     else
 
       @status ="FAILED"
-      flash.now.alert = "Email or Password is invalid"
-      render "new"
+      redirect_to new_session_path, notice: "Email or Password is invalid"
     end
   end
 
@@ -36,6 +35,7 @@ class SessionsController < ApplicationController
     session[:user_id] = nil
     @event = "LOGOUT"
     @status = "SUCCESS"
+
     redirect_to root_url, notice: "Logged Out"
   end
 end

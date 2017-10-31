@@ -5,7 +5,6 @@ module EventLoggable
 
   # Entrance for logging system
   def log_event(model, params = nil)
-
     if model.present?
       LogHandler.new.log(model, params)
     end
