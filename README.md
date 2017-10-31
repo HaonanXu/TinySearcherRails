@@ -7,6 +7,7 @@ This is a small version of TinySearch App based on Ruby on Rails (Ruby 2.3 and R
   - git clone to the local
   - cd into the project folder
   - make sure the `docker-compose` is intalled
+  - run: `docker-compose build` then
   - run: `docker-compose up` and after app is up
   - open another terminal run: `docker-compose run web rails db:setup`
   - then visiting `localhost:3000` to start
