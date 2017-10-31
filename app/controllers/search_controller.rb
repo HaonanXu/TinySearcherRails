@@ -30,6 +30,7 @@ class SearchController < ApplicationController
     rescue Twitter::Error, ArgumentError, RuntimeError => e
 
       @status = "FAILED"
+      log_event(e)
       redirect_to search_index_path, notice: e.message
     end
   end
@@ -58,6 +59,7 @@ class SearchController < ApplicationController
     rescue Twitter::Error, ArgumentError, RuntimeError => e
 
       @status = "FAILED"
+      log_event(e)
       redirect_to search_index_path, notice: e.message
     end
   end
