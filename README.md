@@ -9,6 +9,9 @@ This is a small version of TinySearch App based on Ruby on Rails (Ruby 2.3 and R
   - run: `docker-compose up` and after app is up
   - open another terminal run: `docker-compose run web rails db:setup`
   - then visiting `localhost:3000` to start
+  - Tested with `docker-compose 1.16.1` on `Mac OS Sierra 10.12.6`/`Yosemite 10.10.5`, and `Ubuntu 16.04`
+  - Seems not compartible with Windows, there is a setup issue with postgres on `docker toolbox` and `VitualBox` on Windows 10 home. First time using docker...
+  - `haonanxu/tiny_searcher` is the remove image on DockHub
 
 * Functions Implemented
   - Twitter key words search
