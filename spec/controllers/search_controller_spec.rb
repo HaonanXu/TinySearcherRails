@@ -92,6 +92,22 @@ RSpec.describe SearchController, type: :controller do
   end
 
   describe "GET #show_random" do
+    it "render search show page and insert result in redis" do
+      allow_any_instance_of(Searcher).to receive(:search).and_return([an_instance_of(Twitter::Tweet)])
+      allow_any_instance_of(SearchHelper).to receive(:format_twitter_data).and_return({
+                                                                                          "url" => Faker::Internet.url,
+                                                                                          "name" => Faker::Name.name,
+                                                                                          "screen_name" => Faker::Name.name,
+                                                                                          "text" => Faker::HarryPotter.quote,
+                                                                                          "created_at" => Faker::Time.backward(5, :evening)})
+      RandomWord.should_receive(:random_word).and_return("test")
 
+
+      get :show_random, :params => {:site => "TWITTER"}
+
+      expect(response).to render_template("search/show")
+      redis = Redis.new(host: ENV.fetch('REDIS_HOST', 'localhost'))
+      expect(redis.get "test").not_to eq nil
+      end
   end
 end

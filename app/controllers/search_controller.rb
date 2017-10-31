@@ -41,7 +41,6 @@ class SearchController < ApplicationController
     @status = "SUCCESS"
 
     begin
-
       redis = Redis.new(host: ENV.fetch('REDIS_HOST', 'localhost'))
       key_word = RandomWord.random_word
 
@@ -57,9 +56,9 @@ class SearchController < ApplicationController
 
       render "show"
     rescue Twitter::Error, ArgumentError, RuntimeError => e
-
       @status = "FAILED"
       log_event(e)
+
       redirect_to search_index_path, notice: e.message
     end
   end
